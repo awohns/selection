@@ -1,0 +1,112 @@
+2/7/17 
+Started the selection work in earnest. 
+Lots of shooting in the dark today. Not quite sure how to start. 
+
+I decided to download 10000 genomes data just for british people on a 2,000,000 stretch of chr15. Then I'll use the same stretch of genome from the targets. 
+I'll validate how much overlap there is, I'll have to troubleshoot that if there is very little overlap for some reason.
+
+After downloading 1000 genomes data specifically for British people via: the data slicer: http://grch37.ensembl.org/Homo_sapiens/Tools/DataSlicer/Results?db=core;tl=9r9PJaCfN78f17U5-2739417
+I found the allele frequency calculator tool online. Now I'm downloading 15:20104250-22000000
+
+Maybe discovered a reason why there wasn't much overlap between the 1000 genomes stuff and target data: I was using whole 1000 genomes data, so most of the variants shouldn't have been in the British population anyway?
+
+Ok So I have the allele frequencies for the GBR population from 1000 genomes. I'm going to try to use my VCF file with the "Allele Frequency Tool" online. If this works it would be great because both of the allele frequencies will be in the same format.
+
+2/8/17
+So there was an issue with the allele freq calculator using my own data. So I'm going to try and recreate it using R. The issue was that it was asking for a population to choose but there wer eno options in the html box.
+
+I ran the following:
+module load vcftools
+vcftools --vcf 1e-5_allsamples_chr15.vcf --out 1e-5_allsamples_chr15_small --chr 15 --from-bp 20104250 --to-bp 22000000 --recode
+
+The allele freq calculator might not have worked anyway because my vcf file only has the genotype likelihood.
+
+2/9/17
+I reran the minor allele frequency angsd command for only the section of the chr15 I'm interested in:
+angsd -out target_freq_20104250_22000000 -doMajorMinor 1 -doMaf 3 -bam /ebc_data/cls83/Johns/angsd/bams.txt -GL 1 -rf chr15regionfile.txt
+
+2/10/17
+So I now have the files for 1000 genomes allele frequency AND the files for alle frequency from the pilot data. I wrote a short script in R to compare the allele frequencies. The overlap is actually quite good it seems. Almost always same base pairs and generally very similar allele frequencies. So now the challenge, I think, is to generalize this to the whole genome. then pull out the top sites across the genome. This will entail the following steps:
+1. Calculate allele frequencies from the 1000 genomes data. Need to write a script to do this across the genome instead of using the allele caluclator. Also need to check the results of my script with the allele frequency calculator results to confirm I'm doing it right.
+2. Write SLURM pipeline to do the minor allele freq across the whole genome
+3. Then I need to do the same R comparison across the whole genome.
+
+Today I am giving a short talk to the Johns project about what I'm doing, so I'm preparing that now
+
+2/13/17
+Didn't end up giving talk to Johns project last friday. 
+
+I did the derived allele frequency as Alex suggested. Actually worked on first try! So now I will generalize to full genome. 
+
+First I will get all the 1000 genomes data for GBR only. I create a txt file with the GBR individual's IDs. Then I use the VCF files from the references folder and vcftools to only get the individuals. I'm going to use something like: ./vcftools --vcf <vcf_file> --keep CEUlist.txt --out outputfile_prefix --plink 
+
+Then I'll have to calculate allele frequencies for all of the sites. Then I'll check the output of the allele frequency calculating script with the chr15 bit that I have already downloaded.  
+
+Things are coming along well by 4:15PM. Got a good amount done. Under the folder /getting_1000g_refs/ I have two folders: allele_freqs/ and gbr_vcfs/
+In gbr_vcfs I made a pipeline that consists of two .sh files. Run the pipeline one and it will call the "each" one for each chromosome file from the 1000genomes_ref_panel folder in my home directory. These slurm pipelines will basically only select the GBR samples using the GBR file that I made (got it from an excel file of the samples). Then they will output the new (smaller) vcf files into the folder within gbr_vcfs called gbr_chrs. 
+In the other folder in getting_1000g_refs/ I calculate allele frequencies for each of the vcfs I made in the other folder. 
+
+Now the challenge is to write an R script that I can use for the comparisons. 
+
+2/14/17
+I wrote part of the R script and tested it. Seems like it should work. I use the command:
+Rscript file.R argument
+and it works. 
+
+Today: worked on getting target frequencies for all the chromosomes. Made a new folder called: getting_target_freqs and am using the same strategy of two .sh files with the --wrap function. target_freq_pipeline calles each_targetfreq_chr.sh for each chromosome. Took a long time to deal with a few syntax errors. After a ton of searching I still don't know how to make a list from 1 to whatever in bash anda ssign it to a variable, let alone how to concatenate another letter at the end. Such a pain. Don't like bash!
+
+After this runs to completion, I will be able to finish writing the R script and then compare to find the most diverged loci across the genome. 
+
+2/15/17
+So the allele frequency stuff ran alright last night. Now working on the R script.
+
+Talking to Freddi about the number of sites in every target genome. She has redone the bams to cut out a few more base pairs before and afterwards. The new files to use are:
+/ebc_data/cls83/Johns/J-06/bam/J-06.FINAL.hg19.dedup.RG.sort.bam
+
+Of this ^ format. I will make a new bam.txt file in the awwohns/selection directory and rerun all the stuff now. 
+
+Made a text file of all the new bams. Now I'm rerunning the target frequencies files to recreate that data. 
+
+Few things I've been thinking about: 1. Need to figure out the right approach for determining what is significant in different allele frequencies. 2. I want to use the POBI data. It's in Toomas's directory under POBI. The .gen files have SNP data. Promising program to use is SNPTEST (https://mathgen.stats.ox.ac.uk/genetics_software/snptest/old/snptest.html). 
+
+Doing really well today. The R script for frequency comparisons is working now and outputs files. I finished the day working on a pipeline to run all the files through the R script, still a few more problems that need to be worked out before it all works. Getting close though.
+
+2 things to work on tomorrow: 
+1. Get the r script pipeline working
+2. Figure out how to work with the POBI data
+
+2/16/17
+I think best way forward is to write another R script in the freq_compare folder which will prepare a txt file of the file names (tab delimited) that should be called for each operation. So for example one line would look like:
+1000gfile.frq	targetfile.mafs.gz
+etc
+
+2/17/17
+Wrote the script to prepare the list of files. It works and it creates a txt file in the freq_compare folder called targets_and_refs.txt
+
+Now the job is to modify the other R script that does the frequency comparison to iterate over the list of files from the txt file and do it's work.
+
+2/24/17
+Yesterday I finally got the whole R pipeline working mostly. For some reason chromosomes 1 and 2 didn't run. The high coverage files (arbitrary value of 15 reads cutoff) have a ~100 lines (or at least chr 15 does). 
+
+Move now is to figure out what happened with chr 1 and 2. And also to run it again with a less stringent threshold. 
+
+So I also need to put in place some more ways to match the appropriate frequencies to come up with better measures of difference. 
+
+Things I want to change in the pipeline:
+1. Redo the "getting 1000g references" part of pipeline so that the rsID numbers are included! This is important for determining potentially functional SNPSusing the pfs (potentially functional SNP search engine).
+2. Filter out indels (just do this for now because I'm not sure about whether they will show up using the ancient data). 
+3. Lower the stringency level to 10 reads
+4. Make the merge easier to understand. Columns should be: 1. Chromosome Number 2. Position 3. ID (rsID) 4. Reference 5. Alternate 6. Ancestral 7. Target allele frequency 8. Reference Allele Frequency 9. Frequency Difference 10. Other alleles (from the 1000g, if its triallelic) 
+5. When matching the ref and alternate columns, have the program create a second file with only the mismatches so I can check 
+
+ALSO: I have to figure out how to deal with software. I emailed Ivar about package managers, hopefully he responds with something helpful. 
+
+2/26/17
+Intermediate goal here is to use the potentially functional SNP search engine to filter all my top hits for which ones are potentially relevant. To do this I need a list of rs numbers.
+Another thing I need to look into is how the likelihood test actually works...
+For now, the challenge is understanding the awk programming language enough to get the positions in a SQL file. 
+
+Ended up using unix command join and limited awk to get the rsid numbers in the same file. Now I will write another pipeline to do it for all the files in the directory. 
+
+2/27/17
+First thing I did was create a txt file of the file names for both the rsids and the frequencies (like I did with the freq_compare business). Now I'll be able to loop through two lists of files simultaneously
