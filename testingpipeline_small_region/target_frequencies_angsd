@@ -1,0 +1,5 @@
+#!/bin/bash
+#Major/minor is using the genotype likelihoods. 
+module load angsd
+angsd -out chr15_target_frequencies -doMajorMinor 1 -doMaf 3 -bam /ebc_data/cls83/Johns/angsd/bams.txt -GL 1 -rf chr15regionfile.txt
+

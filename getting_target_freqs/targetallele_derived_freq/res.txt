@@ -1,0 +1,29 @@
+/ebc_data/awwohns/selection/targetallele_derived_freq
+ebc226
+Mon Feb 13 13:20:20 EET 2017
+here
+	-> Problem with difference in zlib version used for compiling and linking
+	-> ZLIB_VERSION: 1.2.3 zlibversion: 1.2.7 
+	-> angsd version: 0.913-18-g9bf348c (htslib: 1.3.1-58-g344c825) build(Jul 31 2016 13:33:27)
+	-> Reading fasta: ../../reference/hs.build37.1.fa
+
+[abcFreq.cpp] You have selected filters for maf/lrt
+If you have selected more than one MAF estimator we will choose in following order
+	1. knownminor EM
+	2. unknownminor EM
+	3. Posterior maf
+	-> Parsing 58 number of samples 
+	-> Region lookup 1/1
+	-> Printing at chr: 15 pos:20850686 chunknumber 100
+
+	-> Done reading data waiting for calculations to finish
+	-> Done waiting for threads
+
+	-> npools:3 unfreed tnodes before clean:0 
+	-> Output filenames:
+		->"chr15_target_frequencies_small.arg"
+		->"chr15_target_frequencies_small.mafs.gz"
+	-> Mon Feb 13 13:21:16 2017
+	-> Arguments and parameters for all analysis are located in .arg file
+	[ALL done] cpu-time used =  45.74 sec
+	[ALL done] walltime used =  56.00 sec

@@ -1,0 +1,16 @@
+
+VCFtools - v0.1.12b
+(C) Adam Auton and Anthony Marcketta 2009
+
+Parameters as interpreted:
+	--vcf 1e-5_allsamples_chr15.vcf
+	--chr 15
+	--to-bp 22000000
+	--out 1e-5_allsamples_chr15_small
+	--recode
+	--from-bp 20104250
+
+After filtering, kept 58 out of 58 Individuals
+Outputting VCF file...
+After filtering, kept 1836 out of a possible 127851 Sites
+Run Time = 1.00 seconds

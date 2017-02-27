@@ -1,0 +1,15 @@
+How analyses in this folder work:
+
+Run the following lines to set it all in motion:
+module load R
+Rscript freq_compare.R targets_and_ref_files_list/targetsandrefs.txt
+
+This will make freq_compare.R run a loop over targetsandfrequencies.txt and at each row of the data table will call sbatch compare_each_chr.R refname targetname
+
+Hierarchy of files:
+freq_compare.R
+calls
+compare_freq_pipeline.sh
+which calls
+compare_each_chr.R for each iteration
+

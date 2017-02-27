@@ -1,0 +1,19 @@
+/ebc_data/awwohns/selection/getting_1000g_refs/gbr_vcfs
+ebc226
+Mon Feb 13 14:20:20 EET 2017
+
+VCFtools - v0.1.12b
+(C) Adam Auton and Anthony Marcketta 2009
+
+Parameters as interpreted:
+	--vcf ../../../1000genomesrefpanel/chrs/chr1.1kg.phase3.v5a.vcf
+	--keep gbr_indv_list.txt
+	--recode-INFO-all
+	--out chr1_gbr
+	--recode
+
+Keeping individuals in 'keep' list
+After filtering, kept 91 out of 2504 Individuals
+Outputting VCF file...
+After filtering, kept 2428653 out of a possible 2428653 Sites
+Run Time = 1223.00 seconds

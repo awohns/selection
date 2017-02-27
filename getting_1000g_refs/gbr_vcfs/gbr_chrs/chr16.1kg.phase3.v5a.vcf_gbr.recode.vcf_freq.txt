@@ -1,0 +1,13 @@
+
+VCFtools - v0.1.12b
+(C) Adam Auton and Anthony Marcketta 2009
+
+Parameters as interpreted:
+	--vcf /ebc_data/awwohns/selection/getting_1000g_refs/gbr_vcfs/gbr_chrs/chr16.1kg.phase3.v5a.vcf_gbr.recode.vcf
+	--freq
+	--out allelefreqs/chr16.1kg.phase3.v5a.vcf_gbr.recode.vcf_withfreqs
+
+After filtering, kept 91 out of 91 Individuals
+Outputting Frequency Statistics...
+After filtering, kept 988654 out of a possible 988654 Sites
+Run Time = 40.00 seconds

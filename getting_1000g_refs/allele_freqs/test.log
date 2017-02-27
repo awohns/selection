@@ -1,0 +1,14 @@
+
+VCFtools - 0.1.15
+(C) Adam Auton and Anthony Marcketta 2009
+
+Parameters as interpreted:
+	--vcf ../gbr_vcfs/gbr_chrs/chr22.1kg.phase3.v5a.vcf_gbr.recode.vcf
+	--recode-INFO-all
+	--freq
+	--out test
+
+After filtering, kept 91 out of 91 Individuals
+Outputting Frequency Statistics...
+After filtering, kept 424147 out of a possible 424147 Sites
+Run Time = 8.00 seconds

@@ -1,0 +1,7 @@
+#!/bin/bash
+
+for folder in /ebc_data/cls83/Johns/J-*/bam; do
+    echo $(find $folder -name J-*.FINAL.hg19.dedup.RG.sort.bam) >> bams.txt
+done
+
+
