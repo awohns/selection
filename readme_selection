@@ -110,3 +110,18 @@ Ended up using unix command join and limited awk to get the rsid numbers in the 
 
 2/27/17
 First thing I did was create a txt file of the file names for both the rsids and the frequencies (like I did with the freq_compare business). Now I'll be able to loop through two lists of files simultaneously
+
+2/28/17
+Yesterday I finally got the join on RSIDs to work. I checked to see why there was a discrepancy in the number of lines between the allele frequency file, the rsid file, and the joined file. It turned out to be because of duplicate lines. I used:
+vimdiff
+to check the differences
+wc -l < filename
+also checks number of lines
+
+I used:
+sort -u -k2,2 onlytwocolumnstest.frq > onlytwocolumnstestunique.frq 
+To see the number of unique rows.
+
+Now, I will finally get around to redoing the merge.
+
+
