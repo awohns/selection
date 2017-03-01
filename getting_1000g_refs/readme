@@ -1,0 +1,3 @@
+withrsids is the final product of these folders
+In the "joined" directory within "withrsids" is the list of all the chromosomes with allele frequency and rsids.
+gbrvcfs folder has all the Great Britian samples from 1000g project -> I get the allele frequencies using angsd in the allele frequency folder, then I add the rsids back into the file in the withrsids folder. These are used in conjunction with the targets from the other folder in the freq_compare folder where they are merged and analyzed. 

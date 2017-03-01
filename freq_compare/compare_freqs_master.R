@@ -9,6 +9,8 @@ files <- read.table(args[1], sep="\t")
 calculate_freq <- function(x, output) {
 pos = regexpr('chr', x[2])
 filename <- substr(x[2], pos, pos + 4)
+#filename <- regmatches(x[2], regexpr("joined.f",x[2]), invert= TRUE)[[1]][1]
+#filename <- regmatches(filename, regexpr("joined/",filename))[[1]][1]
 system(paste(paste0("sbatch --job-name=",filename),"freq_compare_pipeline.sh",x[1],x[2]))
 system("sleep 1")
 }
