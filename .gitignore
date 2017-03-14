@@ -2,3 +2,4 @@
 **/*.frq
 **/*.mafs.gz
 /pobi/*
+/data/*
