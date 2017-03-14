@@ -1,4 +1,4 @@
 **/*.vcf
 **/*.frq
 **/*.mafs.gz
-
+/pobi/*
