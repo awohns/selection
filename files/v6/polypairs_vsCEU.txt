@@ -1,0 +1,10 @@
+WHG,CEU
+SHG,CEU
+Spain_EN,CEU
+Germany_EN,CEU
+Spain_MN,CEU
+Germany_MN,CEU
+Germany_LNBA,CEU
+Hungary_LNBA,CEU
+Steppe_BA,CEU
+IBS,CEU
