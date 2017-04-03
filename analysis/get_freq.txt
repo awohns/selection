@@ -1,0 +1,12 @@
+found options:
+{'pops': ['/ebc_data/awwohns/selection/code/files/v8/used_all.txt'], 'out': '/ebc_data/awwohns/selection/counts/v8/all', 'inds': None, 'inbred': ['/ebc_data/awwohns/selection/code/files/v8/used_ancient_pseudodiploid.txt'], 'data': '/ebc_data/awwohns/data/v8/use/v8/1kg_europe2names', 'allow_duplicates': False, 'reads': False, 'snps': '/ebc_data/awwohns/data/v8/use/v81kg_europe2names', 'genotypes': False}
+Traceback (most recent call last):
+  File "/ebc_data/awwohns/spindrift/Freq.py", line 120, in <module>
+    main(options)
+  File "/ebc_data/awwohns/spindrift/Freq.py", line 110, in main
+    allow_duplicates=options["allow_duplicates"])
+  File "/mmg/awwohns/spindrift/snp_data.py", line 30, in __init__
+    self.load(file_root, pops=pops, inds=inds, exclude_inds=exclude_inds, snps=snps, allow_duplicates=allow_duplicates)
+  File "/mmg/awwohns/spindrift/snp_data.py", line 169, in load
+    data=pE.load(file_root, pops=pops, inds=inds, exclude_inds=exclude_inds, snps=snps)
+AttributeError: 'module' object has no attribute 'load'
